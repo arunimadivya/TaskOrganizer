@@ -1,0 +1,39 @@
+{% extends "task/base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <h2 class="display-6" style="color:#240046;"><strong>New task</strong></h2>
+    </div>
+</div>
+<div class="row justify-content-center ">
+    <div class="col-md-5">
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="t_name" style="color:#240046;"><strong>Task</strong></label>
+                <input type="text" name="t_name" class="form-control" id="t_name" style="background-color:#fdfdfd; border:#c86bfa;" required>
+            </div>
+            <div class="form-group mt-2">
+                <label for="note" style="color:#240046;"><strong>Note</strong></label>
+                <textarea name="note" class="form-control" id="note" style="background-color:#fdfdfd; border:#c86bfa;" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="category" style="color:#240046;"><strong>Category</strong></label>
+                <input type="category" name="category" class="form-control" id="category" style="background-color:#fdfdfd; border:#c86bfa;" required>
+            </div>
+            <div class="form-group form-check mt-2">
+                <label class="form-check-label" for="priority" style="color:#240046;"><strong>Important</strong></label>
+                <input type="checkbox" name="priority" class="form-check-input" id="priority" style="background-color:#fdfdfd; border:#c86bfa;">
+            </div>
+            
+            <button type="submit" class="btn mt-2" style="background-color:#240046; color:#fdfdfd;">Create</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

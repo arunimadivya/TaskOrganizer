@@ -1,0 +1,32 @@
+{% extends "task/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2 class="display-6" style="color:#240046;"><strong>Login</strong></h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group mt-2">
+                    <label for="user" style="color:#240046;"><strong>Username</strong></label>
+                    <input type="text" name="user" class="form-control" id="user" style="background-color:#fdfdfd; border:#c86bfa;" required>
+                </div>
+                <div class="form-group">
+                    <label for="pass" style="color:#240046;"><strong>Password</strong></label>
+                    <input type="password" name="pass" class="form-control" id="pass" style="background-color:#fdfdfd; border:#c86bfa;" required>
+                </div>
+                <br>
+                <button type="submit" class="btn" style="background-color:#957fef; color:#fdfdfd;">Login</button>
+            </form>
+            
+        </div>
+    </div>
+{% endblock %}

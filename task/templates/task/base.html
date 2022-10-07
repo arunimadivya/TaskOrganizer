@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <title>Task Organizer</title>
+</head>
+
+<body style="background-color:#ded3e6">
+
+    <nav class="navbar navbar-expand-md " style="background-color:#240046; ">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <span class='h1' style="color:#f5f3f6;">Task Organizer</span>
+            </a>
+
+            <div class="collapse navbar-collapse">
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item {{ current }}">
+                        <a class="nav-link" href="{% url 'currenttasks' %}" style="color:white;">Current</a>
+                    </li>
+                    <li class="nav-item {{ important }}">
+                        <a class="nav-link" href="{% url 'importanttasks' %}" style="color:white;">Important</a>
+                    </li>
+                    <li class="nav-item {{ completed }}">
+                        <a class="nav-link" href="{% url 'completedtasks' %}" style="color:white;">Completed</a>
+                    </li>
+                    <li class="nav-item {{ new }}">
+                        <a class="nav-link" href="{% url 'newtask' %}" style="color:white;">New Task</a>
+                    </li>
+
+                </ul>
+                {% endif %}
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:white;">Hi <strong>{{ user.username }}</strong>!</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn" style="color:white;"
+                                formaction="{% url 'logoutuser' %}">Logout</button>
+                        </form>
+                        
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}" style="color:white;">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'loginuser' %}" style="color:white;">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <a class="nav-item" href="https://arunimadivya.github.io/">
+                <span class="nav-link text-muted" style="color:#f5f3f6;">Arunima</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

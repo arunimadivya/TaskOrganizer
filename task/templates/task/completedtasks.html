@@ -1,0 +1,49 @@
+{% extends "task/base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+        <h1 class="display-6" style="color:#240046;"><strong>Completed Tasks</strong></h1>
+    </div>
+</div>
+<div class="row justify-content-center mt-3">
+    <div class="col-md-10">
+        <table class="table table-bordered">
+            <tr style="background-color:#240046; ">
+                <th></th>
+                <th style="color:#f5f3f6;">Task Name</th>
+                <th style="color:#f5f3f6;">Category</th>
+                <th style="color:#f5f3f6;">Details</th>
+                <th style="color:#f5f3f6">Date Finished</th>
+            </tr>
+            {% for task in tasks %}
+            {% if task.priority %}
+            <tr style="background-color:#815ac0; color:#f5f3f6;">
+                <td>
+                    <center><a href="{% url 'update' task.id %}" title="Update"><i class="primary bi bi-pencil" style="color:#f5f3f6;"></i></a>
+                    </center>
+                </td>
+                <td>{{task.t_name}}</td>
+                <td>{{task.category}}</td>
+                <td> {{ task.note }}</td>
+                <td>{{ task.completiondate|date:'M j Y H:i' }}</td>
+            </tr>
+
+            {% else %}
+            <tr style="background-color:#dac3e8; color:#240046;">
+                <td>
+                    <center><a href="{% url 'update' task.id %}" title="Update"><i class="primary bi bi-pencil" style="color:#f5f3f6;"></i></a>
+                    </center>
+                </td>
+                <td>{{task.t_name}}</td>
+                <td>{{task.category}}</td>
+                <td> {{ task.note }}</td>
+                <td>{{ task.completiondate|date:'M j Y H:i' }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+{% endblock %}

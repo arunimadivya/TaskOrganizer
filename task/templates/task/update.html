@@ -1,0 +1,45 @@
+{% extends "task/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2 class="display-6" style="color:#240046;"><strong>Update Task</strong></h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-2">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="t_name" style="color:#240046;"><strong>Task</strong></label>
+                    <input type="text" name="t_name" class="form-control" id="t_name" value="{{ task.t_name }}" style="background-color:#fdfdfd; border:#c86bfa;" required>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="note" style="color:#240046;"><strong>Note</strong></label>
+                    <textarea name="note" rows="5" class="form-control" id="note" style="background-color:#fdfdfd; border:#c86bfa;" required>{{ task.note }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="category" style="color:#240046;"><strong>Category</strong></label>
+                    <input type="text" name="category" class="form-control" id="category" value="{{ task.category }}" style="background-color:#fdfdfd; border:#c86bfa;" required>
+                </div>
+                <div class="form-group form-check mt-2">
+                    <input type="checkbox" name="priority" class="form-check-input" id="priority"  {% if task.priority %}checked{% endif %}>
+                    <label class="form-check-label" for="priority" style="color:#240046;"><strong>Important</strong></label>
+                </div>
+                <br>
+                <button type="submit" class="btn" style="background-color:#957fef; color:#fdfdfd;"><i class="bi bi-save" style="color:#fdfdfd;"></i> Update</button>
+                {% if task.datecompleted is None %}
+                <button type="submit" class="btn" formaction="{% url 'completetask' task.id %}" style="background-color:#ac66e5; color:#fdfdfd;"><i class="bi bi-trash" style="color:#fdfdfd;"></i> Complete</button>
+                {% endif %}
+                <button type="submit" class="btn" formaction="{% url 'deletetask' task.id %}" style="background-color:#240046; color:#fdfdfd;"><i class="bi bi-trash" style="color:#fdfdfd;"></i> Delete</button>
+
+            </form>
+            
+        </div>
+    </div>
+{% endblock %}
